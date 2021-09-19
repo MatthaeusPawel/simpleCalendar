@@ -9,16 +9,17 @@ export function prepareData  (data, date) {
     const $ = cheerio.load(data.toString(), null, false);
 
     let cal = $('#myCalendar');
-    let currentClass;
     const myMonth = month(date);
     for (let week = 0; week < 6 ; ++week){
         for (let day = 0; day < 7 ; ++day){
-            if (day < 5) currentClass = "weekday"
-            else         currentClass = "weekend";
+            let currentClass = '';
+            if (myMonth[week][day].currentMonth){
+                currentClass = 'currentMonth'
 
-            if (!myMonth[week][day].currentMonth)
-                currentClass = currentClass + 'Not'
-            currentClass = currentClass + 'CurrentMonth'
+                if (day >= 5)
+                    currentClass += " weekend";
+            }
+
 
             cal.append(`\t<div class="daybox ${currentClass}" id='cal-${week},${day}'> ${myMonth[week][day].day} </div>`);
         }

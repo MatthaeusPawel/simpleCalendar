@@ -42,15 +42,6 @@ export async function routes (fastify, options){
             return "Fehler";
         }
     })
-    //fastify.post('/main.html:params', async (request, reply) => {
-          //console.log(request.body)
-          //console.log(request.query)
-          //console.log(request.params)
-          //console.log(request.headers)
-          //console.log(request.raw)
-          //console.log(request.id)
-          //request.log.info('some info')}
-    //)
 }
 
 //module.exports = routes;

@@ -46,31 +46,19 @@
         border-width: 1px;
         border-style: solid;
         border-color: lightgray;
-    }
-    
-    .daybox:hover{
-        background-color: lightblue;
+        background: rgb(243, 243, 243);
+        color: gray;
     }
 
-    .weekdayCurrentMonth {
+    .currentMonth {
         background: white;
         font-weight: bold;
     }
 
-    .weekendCurrentMonth {
+    .weekend {
         background: rgb(56, 165, 255);
         color: white;
         font-weight: bold;
-    }
-
-    .weekdayNotCurrentMonth {
-        background: rgb(243, 243, 243);
-        color: gray;
-    }
-
-    .weekendNotCurrentMonth {
-        background: rgb(243, 243, 243);
-        color: gray;
     }
     
     a, a:hover, a:visited {
@@ -78,6 +66,11 @@
         color: black;
     }
     
+     .addedToSelection{
+        background: lightblue;
+        color: black;
+    }
+
     .unselectable {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -109,7 +102,7 @@
 <body>
 <div id="headline">
     <a id="prevMonth"><div >&lt;&lt;</div></a>
-    <div id="displayMonthYearID">August 2021</div>
+    <div id="displayMonthYearID"></div>
     <a id="nextMonth"><div>&gt;&gt;</div></a>
 </div>
 
