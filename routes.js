@@ -1,49 +1,41 @@
 import * as fs from 'fs/promises';
-import {prepareData} from './htmlmanipulate.mjs'; 
+import prepareData from './htmlmanipulate.mjs';
 
-export async function routes (fastify, options){
-    fastify.get('/', async (request, reply) => {
-        return {hello: 'world'};
-    })
-    fastify.get('/main.html', async (request, reply) => {
-        try {
-            const filename = `./main.html`;
-            let data = await fs.readFile(filename);
-            let date;
+export default async function routes(fastify, _options) {
+  fastify.get('/', async (_request, _reply) => ({ hello: 'world' }));
+  fastify.get('/main.html', async (request, reply) => {
+    try {
+      const filename = './main.html';
+      let data = await fs.readFile(filename);
+      let date;
 
-            if (typeof request.query.year !== 'undefined' && typeof request.query.month !== 'undefined'){
-                let date_string = `${request.query.year}-${request.query.month}-01`;
-                date = new Date(date_string);
-            }
-            else 
-                date = new Date();
+      if (
+        typeof request.query.year !== 'undefined'
+        && typeof request.query.month !== 'undefined'
+      ) {
+        const dateString = `${request.query.year}-${request.query.month}-01`;
+        date = new Date(dateString);
+      } else date = new Date();
 
-            data = prepareData(data, date);
-            reply.type('text/html').code(200);
+      data = prepareData(data, date);
+      reply.type('text/html').code(200);
 
-            return data;
-        }
-        catch(err) {
-            reply.type('text/html').code(404);
-            return err;
-        }
-    })
-    fastify.get('/dommanipulate.js', async (request, reply) => {
-        const filename = './dommanipulate.js';
-        let data;
-        //const {err, data} = await fs.readFile(filename);
-        try {
-            data = await fs.readFile(filename);
-            reply.type('application/javascript').code(200);
-            return data;
-        }
-        catch(err) {
-            reply.type('text/html').code(404);
-            return "Fehler";
-        }
-    })
+      return data;
+    } catch (err) {
+      reply.type('text/html').code(404);
+      return err;
+    }
+  });
+  fastify.get('/dommanipulate.js', async (_request, reply) => {
+    const filename = './dommanipulate.js';
+    let data;
+    try {
+      data = await fs.readFile(filename);
+      reply.type('application/javascript').code(200);
+      return data;
+    } catch (err) {
+      reply.type('text/html').code(404);
+      return 'Fehler';
+    }
+  });
 }
-
-//module.exports = routes;
-
-
