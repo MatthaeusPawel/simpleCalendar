@@ -1,7 +1,10 @@
 let initialSelectionX = 0;
 let initialSelectionY = 0;
-var mousepressed = 0;
 
+/** Mouse event on html page
+ * @param {MouseEvent} event
+ * @param {Object} $ jQuery inherited from window
+ */
 function clickEvent(event, $) {
   if (!event.ctrlKey) {
     $('.addedToSelection').removeClass('addedToSelection');
@@ -23,19 +26,31 @@ function clickEvent(event, $) {
     })
     .toggleClass('addedToSelection');
 }
+
+/** Mouse event on html page
+ * @param {MouseEvent} event
+ * @param {Object} $ jQuery inherited from window
+ */
 function markthingies(event, $) {
   const mySelection = $('#markedSelection');
   initialSelectionX = event.pageX;
   initialSelectionY = event.pageY;
   mySelection.show().css('left', event.pageX).css('top', event.pageY);
-  mousepressed = 1;
 }
 
+/** Mouse event on html page
+ * @param {MouseEvent} event
+ * @param {Object} $ jQuery inherited from window
+ */
 function unmarkthingies(event, $) {
   const mySelection = $('#markedSelection');
   mySelection.hide().css('height', 0).css('width', 0);
 }
 
+/** Mouse event on html page
+ * @param {MouseEvent} event
+ * @param {Object} $ jQuery inherited from window
+ */
 function moveMouse(event, $) {
   const mySelection = $('#markedSelection');
   if (mySelection.is(':visible')) {
@@ -90,7 +105,7 @@ function moveMouse(event, $) {
     calendar.on('mouseup', ((jq) => (e) => unmarkthingies(e, jq))($));
     calendar.on('mousemove', ((jq) => (e) => moveMouse(e, jq))($));
 
-    $('.daybox').on('click', clickEvent);
+    $('.daybox').on('click', ((jq) => (e) => clickEvent(e, jq))($));
 
     mySelection.on('mousemove', ((jq) => (e) => moveMouse(e, jq))($));
     mySelection.on('mouseup', ((jq) => (e) => unmarkthingies(e, jq))($));
